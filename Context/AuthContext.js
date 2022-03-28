@@ -24,6 +24,12 @@ const Provider = ({ children }) => {
     })
   }
 
+  const signInWithGoogle = async () => {
+    let { user, error } = await supabase.auth.signIn({
+      provider: 'google',
+    })
+  }
+
   const signUp = async (email, password) => {
     let { user, error } = await supabase.auth.signUp({
       email,
@@ -55,6 +61,7 @@ const Provider = ({ children }) => {
     signOut,
     signIn,
     signUp,
+    signInWithGoogle,
   }
 
   return <Context.Provider value={exposed}>{children}</Context.Provider>

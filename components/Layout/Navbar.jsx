@@ -1,11 +1,17 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import useCart from '../../hooks/useCart'
+import { useUser } from '../../Context/AuthContext'
 
 export default function Navbar() {
   const [showMenu, setShowMenu] = useState(false)
   const [showMenuSm, setShowMenuSm] = useState(false)
   const [search, setSearch] = useState(false)
+
+  const { cart } = useCart()
+
+  const { user } = useUser()
 
   return (
     <div className="dark:bg-gray-900">
@@ -56,75 +62,43 @@ export default function Navbar() {
               </ul>
             </div>
             <div className="flex items-center space-x-6 lg:w-3/12 lg:justify-end lg:space-x-4 xl:space-x-6">
-              <div className="hidden items-center space-x-2 md:flex">
-                <button
-                  aria-label="Search"
-                  onClick={() => setSearch(!search)}
-                  className="rounded text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white"
+              <Link href="/cart">
+                <a
+                  aria-label="Go to Cart"
+                  className="relative hidden cursor-pointer rounded text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white md:block"
                 >
-                  <div>
-                    <svg
-                      className="fill-stroke"
-                      width={24}
-                      height={24}
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M10 17C13.866 17 17 13.866 17 10C17 6.13401 13.866 3 10 3C6.13401 3 3 6.13401 3 10C3 13.866 6.13401 17 10 17Z"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                      <path
-                        d="M21 21L15 15"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </div>
-                </button>
-                <input
-                  id="search-bar"
-                  type="text"
-                  placeholder="Search products"
-                  className={`h-12 rounded bg-gray-300 py-1 px-2 text-sm text-gray-600 focus:outline-none ${
-                    search ? '' : 'hidden'
-                  }`}
-                />
-              </div>
-              <a
-                aria-label="Go to Cart"
-                className="hidden cursor-pointer rounded text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white md:block"
-              >
-                <svg
-                  className="fill-stroke"
-                  width={24}
-                  height={24}
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M7.5 8.25V6.75C7.5 5.55653 7.97411 4.41193 8.81802 3.56802C9.66193 2.72411 10.8065 2.25 12 2.25V2.25C13.1935 2.25 14.3381 2.72411 15.182 3.56802C16.0259 4.41193 16.5 5.55653 16.5 6.75V8.25M3.75 8.25C3.55109 8.25 3.36032 8.32902 3.21967 8.46967C3.07902 8.61032 3 8.80109 3 9V19.125C3 20.5425 4.2075 21.75 5.625 21.75H18.375C19.7925 21.75 21 20.6011 21 19.1836V9C21 8.80109 20.921 8.61032 20.7803 8.46967C20.6397 8.32902 20.4489 8.25 20.25 8.25H3.75Z"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                  <path
-                    d="M7.5 10.5V11.25C7.5 12.4435 7.97411 13.5881 8.81802 14.432C9.66193 15.2759 10.8065 15.75 12 15.75C13.1935 15.75 14.3381 15.2759 15.182 14.432C16.0259 13.5881 16.5 12.4435 16.5 11.25V10.5"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </a>
+                  {cart.length > 0 && (
+                    <div className="absolute -top-2 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-sky-600  text-white">
+                      <p className="text-xs">{cart.length}</p>
+                    </div>
+                  )}
+
+                  <svg
+                    className="fill-stroke"
+                    width={24}
+                    height={24}
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M7.5 8.25V6.75C7.5 5.55653 7.97411 4.41193 8.81802 3.56802C9.66193 2.72411 10.8065 2.25 12 2.25V2.25C13.1935 2.25 14.3381 2.72411 15.182 3.56802C16.0259 4.41193 16.5 5.55653 16.5 6.75V8.25M3.75 8.25C3.55109 8.25 3.36032 8.32902 3.21967 8.46967C3.07902 8.61032 3 8.80109 3 9V19.125C3 20.5425 4.2075 21.75 5.625 21.75H18.375C19.7925 21.75 21 20.6011 21 19.1836V9C21 8.80109 20.921 8.61032 20.7803 8.46967C20.6397 8.32902 20.4489 8.25 20.25 8.25H3.75Z"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M7.5 10.5V11.25C7.5 12.4435 7.97411 13.5881 8.81802 14.432C9.66193 15.2759 10.8065 15.75 12 15.75C13.1935 15.75 14.3381 15.2759 15.182 14.432C16.0259 13.5881 16.5 12.4435 16.5 11.25V10.5"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </a>
+              </Link>
+
               <button
                 aria-label="open Menu"
                 onClick={() => setShowMenu(true)}
@@ -161,6 +135,7 @@ export default function Navbar() {
                   />
                 </svg>
               </button>
+
               <button
                 aria-label="open Menu"
                 onClick={() => setShowMenuSm(true)}
@@ -209,38 +184,7 @@ export default function Navbar() {
           <div className="relative h-screen w-full">
             <div className="absolute right-0 top-0 h-full w-1/2 justify-center bg-white p-6 dark:bg-gray-900">
               <div className="flex items-center justify-between border-b border-gray-200 pb-4 dark:border-gray-700">
-                <div className="mx-2 flex items-center space-x-3">
-                  <div>
-                    <svg
-                      className="fill-stroke text-gray-800 dark:text-white"
-                      width={20}
-                      height={20}
-                      viewBox="0 0 20 20"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M9 17C13.4183 17 17 13.4183 17 9C17 4.58172 13.4183 1 9 1C4.58172 1 1 4.58172 1 9C1 13.4183 4.58172 17 9 17Z"
-                        stroke="currentColor"
-                        strokeWidth="1.25"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                      <path
-                        d="M18.9984 19.0004L14.6484 14.6504"
-                        stroke="currentColor"
-                        strokeWidth="1.25"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </div>
-                  <input
-                    type="text"
-                    placeholder="Search for products"
-                    className="bg-transparent text-sm text-gray-600 focus:outline-none"
-                  />
-                </div>
+                <div className="mx-2 flex items-center space-x-3"></div>
                 <button
                   onClick={() => setShowMenu(false)}
                   aria-label="close menu"
@@ -338,11 +282,6 @@ export default function Navbar() {
                     />
                   </svg>
                 </div>
-                <input
-                  type="text"
-                  placeholder="Search for products"
-                  className="bg-transparent text-sm text-gray-600 focus:outline-none dark:text-gray-300"
-                />
               </div>
               <button
                 onClick={() => setShowMenuSm(false)}
@@ -375,9 +314,11 @@ export default function Navbar() {
             <div className="mt-6">
               <ul className="flex flex-col space-y-8">
                 <li className="flex items-center justify-between">
-                  <a className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white">
-                    Home
-                  </a>
+                  <Link href="/">
+                    <a className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white">
+                      Home
+                    </a>
+                  </Link>
                   <button
                     aria-label="add"
                     className="text-gray-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white dark:hover:bg-gray-700"
@@ -406,9 +347,11 @@ export default function Navbar() {
                   </button>
                 </li>
                 <li className="flex items-center justify-between">
-                  <a className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white">
-                    Catalog
-                  </a>
+                  <Link href="/products">
+                    <a className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white">
+                      Products
+                    </a>
+                  </Link>
                   <button
                     aria-label="add"
                     className="text-gray-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white dark:hover:bg-gray-700"
@@ -437,9 +380,11 @@ export default function Navbar() {
                   </button>
                 </li>
                 <li className="flex items-center justify-between">
-                  <a className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white">
-                    Blog
-                  </a>
+                  <Link href="/blog">
+                    <a className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white">
+                      Blog
+                    </a>
+                  </Link>
                   <button
                     aria-label="add"
                     className="text-gray-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white dark:hover:bg-gray-700"
@@ -468,9 +413,11 @@ export default function Navbar() {
                   </button>
                 </li>
                 <li className="flex items-center justify-between">
-                  <a className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white">
-                    Contact us
-                  </a>
+                  <Link href="/contact">
+                    <a className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white">
+                      Contact us
+                    </a>
+                  </Link>
                   <button
                     aria-label="add"
                     className="text-gray-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white dark:hover:bg-gray-700"

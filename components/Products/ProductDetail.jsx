@@ -1,9 +1,12 @@
 import react, { useState } from 'react'
 import Image from 'next/image'
 import formatter from '../../lib/format'
+import useCart from '../../hooks/useCart'
 
 export default function ProductDetail({ product }) {
   const [num, setNum] = useState(1)
+
+  const { addToCart, addCartQty, reduceCartQty } = useCart()
 
   const handleNum = (flag) => {
     if (flag === 'sub' && num > 1) {
@@ -102,7 +105,10 @@ export default function ProductDetail({ product }) {
             </button>
           </div>
           <div className="mt-6 flex w-full flex-col items-center justify-center space-y-4 xl:mt-10 xl:flex-row xl:space-y-0 xl:space-x-8">
-            <button className="duration-400 flex w-full items-center justify-center rounded-full border border-gray-600 bg-gray-800 py-3 text-base leading-none text-gray-50 transition ease-in-out hover:bg-gray-200 hover:text-gray-800 xl:py-4">
+            <button
+              onClick={() => addToCart(product, num)}
+              className="duration-400 flex w-full items-center justify-center rounded-full border border-gray-600 bg-gray-800 py-3 text-base leading-none text-gray-50 transition ease-in-out hover:bg-gray-200 hover:text-gray-800 xl:py-4"
+            >
               Add to cart
             </button>
           </div>

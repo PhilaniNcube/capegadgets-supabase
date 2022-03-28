@@ -6,9 +6,7 @@ import Featured from '../components/Featured'
 import getProducts from '../lib/getProducts'
 import { dehydrate, QueryClient, useQuery } from 'react-query'
 
-const Home = ({ initialData }) => {
-  console.log(initialData)
-
+const Home = () => {
   return (
     <Fragment>
       <Head>
@@ -23,13 +21,3 @@ const Home = ({ initialData }) => {
 }
 
 export default Home
-
-export const getServerSideProps = async () => {
-  const { products } = await getProducts()
-
-  return {
-    props: {
-      initialData: products,
-    },
-  }
-}

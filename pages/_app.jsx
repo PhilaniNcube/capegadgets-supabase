@@ -3,7 +3,7 @@ import { QueryClient, QueryClientProvider, Hydrate } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { useRouter } from 'next/router'
 import UserProvider from '../Context/AuthContext'
-import NavProvider from '../Context/NavContext'
+import CartProvider from '../Context/CartContext'
 import Navbar from '../components/Layout/Navbar'
 import analytics from '../utils/analytics'
 import '../styles/globals.css'
@@ -18,13 +18,15 @@ function MyApp({ Component, pageProps }) {
   return (
     <Fragment>
       <UserProvider>
-        <QueryClientProvider client={queryClient}>
-          <Hydrate state={pageProps.dehydratedState}>
-            <Navbar />
-            <Component {...pageProps} />;
-          </Hydrate>
-          <ReactQueryDevtools />
-        </QueryClientProvider>
+        <CartProvider>
+          <QueryClientProvider client={queryClient}>
+            <Hydrate state={pageProps.dehydratedState}>
+              <Navbar />
+              <Component {...pageProps} />;
+            </Hydrate>
+            <ReactQueryDevtools />
+          </QueryClientProvider>
+        </CartProvider>
       </UserProvider>
     </Fragment>
   )
