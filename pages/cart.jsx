@@ -24,7 +24,7 @@ export default function Cart() {
 
   return (
     <div className="container mx-auto">
-      <div className="w-full py-9 px-4 py-12 md:px-6">
+      <div className="w-full py-9 px-4 md:py-12 md:px-6">
         <div className>
           <div className="text-base leading-4 text-gray-600 lg:leading-none">
             <span>
@@ -160,7 +160,7 @@ export default function Cart() {
                             </button>
                           </div>
                         </div>
-                        <div className="flex hidden justify-end md:block">
+                        <div className="hidden justify-end md:block">
                           <p className="text-right text-gray-800 md:mt-3">
                             <span className="text-xl leading-tight text-gray-800">
                               Item Total:{' '}
@@ -280,13 +280,13 @@ export default function Cart() {
               </div>
               {user ? (
                 <Link href="/checkout">
-                  <button className="hover: mt-4 w-full bg-gray-800 py-5 text-base font-medium leading-none text-gray-50 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-2 focus:ring-gray-800 focus:ring-gray-800 focus:ring-offset-2 focus:ring-offset-2">
+                  <button className="hover: mt-4 w-full bg-gray-800 py-5 text-base font-medium leading-none text-gray-50 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-offset-2 ">
                     Proceed to checkout
                   </button>
                 </Link>
               ) : (
                 <Link href="/sign-in" passHref>
-                  <button className="hover: mt-4 w-full bg-gray-800 py-5 text-base font-medium leading-none text-gray-50 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-2 focus:ring-gray-800 focus:ring-gray-800 focus:ring-offset-2 focus:ring-offset-2">
+                  <button className="hover: mt-4 w-full bg-gray-800 py-5 text-base font-medium leading-none text-gray-50 hover:bg-gray-700 focus:outline-none  focus:ring-2 focus:ring-gray-800 focus:ring-offset-2 ">
                     Please Sign In
                   </button>
                 </Link>

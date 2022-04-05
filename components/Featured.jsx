@@ -15,7 +15,7 @@ const Featured = () => {
             <div className="absolute bottom-0 z-10 ml-12 mb-12">
               <h1 className="text-4xl font-semibold text-white">Bundles</h1>
               <Link href="/categories/bundles" passHref>
-                <button className="mt-6 border border-white bg-white bg-gray-200 bg-opacity-0 bg-opacity-70 py-4 px-9 text-base font-medium text-white transition duration-150 hover:bg-gray-200 hover:bg-opacity-70  hover:bg-opacity-10  focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                <button className="mt-6 border border-white bg-gray-200 bg-opacity-0 py-4 px-9 text-base font-medium text-white transition duration-150 hover:bg-gray-200 hover:bg-opacity-10  focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                   Shop Now
                 </button>
               </Link>
@@ -30,7 +30,7 @@ const Featured = () => {
             <div className="absolute bottom-0 z-10 ml-12 mb-12">
               <h1 className="text-4xl font-semibold text-white">Earphones</h1>
               <Link href="/categories/earphone" passHref>
-                <button className="mt-6 border border-white bg-white bg-opacity-0 py-4 px-9 text-base font-medium text-white transition duration-150 hover:bg-gray-50 hover:bg-opacity-100 hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                <button className="mt-6 border border-white bg-white bg-opacity-0 py-4 px-9 text-base font-medium text-white transition duration-150 hover:bg-gray-50 hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                   Shop Now
                 </button>
               </Link>
@@ -47,7 +47,7 @@ const Featured = () => {
             <div className="absolute bottom-0 w-full px-3 pb-6 md:px-10 md:pb-10">
               <h1 className="text-xl font-semibold text-white">Bundles</h1>
               <Link href="/categories/bundles" passHref>
-                <button className="mt-4 w-full border border-white bg-white bg-opacity-0 py-4 px-8 text-center text-base font-medium text-white transition duration-150 hover:bg-gray-50 hover:bg-opacity-100 hover:bg-opacity-10  focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 md:mt-5 lg:w-5/12">
+                <button className="mt-4 w-full border border-white bg-white bg-opacity-0 py-4 px-8 text-center text-base font-medium text-white transition duration-150 hover:bg-gray-50 hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 md:mt-5 lg:w-5/12">
                   Shop Now
                 </button>
               </Link>
@@ -62,7 +62,7 @@ const Featured = () => {
             <div className="absolute bottom-0 w-full px-3 pb-6 md:px-10 md:pb-10">
               <h1 className="text-xl font-semibold text-white">Earphones</h1>
               <Link href="/categories/earphone" passHref>
-                <button className="mt-4 w-full border border-white bg-white bg-opacity-0 py-4 text-center text-base font-medium text-white transition duration-150 hover:bg-gray-50 hover:bg-opacity-100 hover:bg-opacity-10  focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 md:mt-5 lg:w-5/12">
+                <button className="mt-4 w-full border border-white bg-white bg-opacity-0 py-4 text-center text-base font-medium text-white transition duration-150 hover:bg-gray-50 hover:bg-opacity-10 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 md:mt-5 lg:w-5/12">
                   Shop Now
                 </button>
               </Link>

@@ -29,7 +29,7 @@ export default function ProductDetail({ product }) {
               alt={product.name}
             />
           </div>
-          <div className="flex hidden w-full flex-col items-start justify-start pb-12 md:flex lg:hidden">
+          <div className="hidden w-full flex-col items-start justify-start pb-12 md:flex lg:hidden">
             <div className="mt-8 flex w-full items-center justify-between border-b border-gray-200 pb-4 md:mt-10 xl:mt-12">
               <p className="text-base font-medium leading-none text-gray-800">
                 Details

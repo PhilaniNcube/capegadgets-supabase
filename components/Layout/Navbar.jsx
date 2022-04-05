@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, Fragment } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import useCart from '../../hooks/useCart'
@@ -99,6 +99,21 @@ export default function Navbar() {
                 </a>
               </Link>
 
+              {/**Desktop User Section */}
+              {user ? (
+                <ul className="hidden space-x-4 md:flex">
+                  <li className=" text-white ">Sign Out</li>
+
+                  <Link href="/account">
+                    <a className=" text-white ">My Account</a>
+                  </Link>
+                </ul>
+              ) : (
+                <Link href="/sign-in">
+                  <a className="hidden text-white md:block">Sign In</a>
+                </Link>
+              )}
+
               <button
                 aria-label="open Menu"
                 onClick={() => setShowMenu(true)}
@@ -175,6 +190,8 @@ export default function Navbar() {
             </div>
           </div>
         </div>
+
+        {/**Tablet Menu */}
         <div
           id="md-menu"
           className={`${
@@ -248,6 +265,8 @@ export default function Navbar() {
             </div>
           </div>
         </div>
+
+        {/**Mobile Menu */}
         <div
           id="mobile-menu"
           className={`${
@@ -445,6 +464,110 @@ export default function Navbar() {
                     </svg>
                   </button>
                 </li>
+
+                {user ? (
+                  <Fragment>
+                    <li className="flex items-center justify-between">
+                      <Link href="/account">
+                        <a className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white">
+                          My Account
+                        </a>
+                      </Link>
+                      <button
+                        aria-label="add"
+                        className="text-gray-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white dark:hover:bg-gray-700"
+                      >
+                        <svg
+                          className="fill-stroke"
+                          width={16}
+                          height={16}
+                          viewBox="0 0 16 16"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M8 3.33301V12.6663"
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                          <path
+                            d="M3.33203 8H12.6654"
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      </button>
+                    </li>
+                    <li className="flex items-center justify-between">
+                      <a className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white">
+                        Sign Out
+                      </a>
+
+                      <button
+                        aria-label="add"
+                        className="text-gray-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white dark:hover:bg-gray-700"
+                      >
+                        <svg
+                          className="fill-stroke"
+                          width={16}
+                          height={16}
+                          viewBox="0 0 16 16"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M8 3.33301V12.6663"
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                          <path
+                            d="M3.33203 8H12.6654"
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      </button>
+                    </li>
+                  </Fragment>
+                ) : (
+                  <li className="flex items-center justify-between">
+                    <Link href="/sign-in">
+                      <a className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white">
+                        Sign In
+                      </a>
+                    </Link>
+                    <button
+                      aria-label="add"
+                      className="text-gray-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white dark:hover:bg-gray-700"
+                    >
+                      <svg
+                        className="fill-stroke"
+                        width={16}
+                        height={16}
+                        viewBox="0 0 16 16"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M8 3.33301V12.6663"
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                        <path
+                          d="M3.33203 8H12.6654"
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </button>
+                  </li>
+                )}
               </ul>
             </div>
           </div>

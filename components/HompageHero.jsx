@@ -28,7 +28,7 @@ function HomepageHero() {
               </Link>
             </div>
           </div>
-          <div className="w-full md:w-1/2 md:pt-12 lg:pt-12">
+          <div className="w-full md:w-1/2 md:pt-12 lg:pt-4">
             <Image width={900} height={900} src="/images/acer.png" />
           </div>
         </div>
