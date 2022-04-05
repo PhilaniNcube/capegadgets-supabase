@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import supabase from '../utils/supabase'
+import formatter from '../lib/format'
 import cookie from 'cookie'
+import axios from 'axios'
 
 const Payment = ({ order, error }) => {
   console.log({ order, error })
@@ -20,8 +22,26 @@ const Payment = ({ order, error }) => {
 
   const [cardNumber, setCardNumber] = useState('')
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
+
+    const response = axios.post(`/api/intelli-token`, {
+      username: 'capegadgets',
+      password: '9d059e3fb4efe73760d5ecee6909c2d2',
+      cardNumber: cardNumber,
+      terminalId: '94DVA001',
+      amount: parseInt((orderTotal + shipping) / 100).toFixed(2),
+      redirectSuccess: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/orders/${id}`,
+      redirectCancel: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/payment/failed`,
+      reference: id,
+    })
+
+    const { data } = await response
+
+    localStorage.setItem('intelliToken', data.token)
+    localStorage.setItem('cardNumber', cardNumber)
+
+    window.location.href = `https://portal.intellimali.co.za/web/payment?paymentToken=${data.token}`
   }
 
   if (error) {
@@ -61,40 +81,29 @@ const Payment = ({ order, error }) => {
         <h3 className="mt-2 text-4xl font-semibold text-gray-800">Payment</h3>
 
         <div className="mt-7 lg:mt-20">
-          <p className="mb-3 text-sm font-normal text-gray-600">Your details</p>
-          <h3 className="text-2xl font-medium text-gray-800">Your details</h3>
+          <h3 className="text-2xl font-medium text-gray-800">
+            Payment Method: {paymentMethod}
+          </h3>
 
           <form className="mt-8" autoComplete="off" onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 gap-x-12 gap-y-10 md:grid-cols-2">
-              <input
-                aria-label="emailAddress"
-                className="border-b-2 border-gray-300 pb-3 text-base font-normal text-gray-600 placeholder-gray-600 focus:outline-none"
-                type="email"
-                name="email"
-                id="email"
-                placeholder="Email address"
-              />
-              <input
-                aria-label="yourName"
-                className="border-b-2 border-gray-300 pb-3 text-base font-normal text-gray-600 placeholder-gray-600 focus:outline-none"
-                type="text"
-                name="yourName"
-                id="YourName"
-                placeholder="Your name"
-              />
-              <input
-                aria-label="phoneNumber"
-                className="border-b-2 border-gray-300 pb-3 text-base font-normal text-gray-600 placeholder-gray-600 focus:outline-none"
-                type="text"
-                name="phoneNumber"
-                id="phoneNumber"
-                placeholder="Phone Number"
-              />
+              {paymentMethod === 'Intellimali' && (
+                <input
+                  aria-label="cardNumber"
+                  className="border-b-2 border-gray-300 pb-3 text-base font-normal text-gray-600 placeholder-gray-600 focus:outline-none"
+                  type="text"
+                  value={cardNumber}
+                  onChange={(e) => setCardNumber(e.target.value)}
+                  name="cardNumber"
+                  id="cardNumber"
+                  placeholder="Enter Card Number"
+                />
+              )}
             </div>
 
             <button
               type="submit"
-              className="my-3 mt-10 w-full bg-gray-800 p-4 text-lg text-white hover:bg-gray-900 md:w-auto"
+              className="my-3 mt-10 w-full bg-gray-800 p-4 text-lg text-white hover:bg-gray-900 md:w-3/6"
             >
               Pay Now
             </button>
@@ -105,28 +114,21 @@ const Payment = ({ order, error }) => {
         <div className="flex flex-1">
           <h3 className="text-2xl font-semibold text-gray-800">Items</h3>
           <div className="flex-auto"></div>
-          <h5 className="cursor-pointer text-base font-normal text-gray-600 underline hover:text-gray-800">
-            Edit Cart
-          </h5>
         </div>
 
-        <div className="mt-7 flex flex-1 text-lg font-normal text-gray-800">
-          <h3>North wolf bag</h3>
-          <h3 className="flex-auto pr-4 text-right md:pr-5 lg:pr-4">1x</h3>
-          <h3>$9,000</h3>
-        </div>
+        {orderItems.map((item, i) => (
+          <div
+            key={i}
+            className="mt-7 flex flex-1 text-lg font-normal text-gray-800"
+          >
+            <h3>{item.name}</h3>
+            <h3 className="flex-auto pr-4 text-right md:pr-5 lg:pr-4">
+              {item.qty}x
+            </h3>
+            <h3>{formatter.format(item.price / 100)}</h3>
+          </div>
+        ))}
 
-        <div className="mt-5 flex flex-1 text-lg font-normal text-gray-800">
-          <h3>LW Sneakers</h3>
-          <h3 className="flex-auto pr-7 text-right md:pr-9 lg:pr-7">1x</h3>
-          <h3>$740</h3>
-        </div>
-
-        <div className="mt-5 flex flex-1 text-lg font-normal text-gray-800">
-          <h3>Luxe card holder</h3>
-          <h3 className="flex-auto pr-7 text-right md:pr-9 lg:pr-7">1x</h3>
-          <h3>$500</h3>
-        </div>
         <div className="absolute -bottom-7 left-0 w-full bg-gray-100 px-8 pb-5 text-lg font-medium text-gray-800 md:-bottom-96 md:pt-80 md:pb-10 lg:bottom-0 lg:mt-0 lg:pb-10 lg:pt-0 xl:px-12">
           <span
             aria-label="Total"
@@ -138,7 +140,7 @@ const Payment = ({ order, error }) => {
             aria-label="Total Price"
             className="float-right text-2xl font-semibold text-gray-800"
           >
-            $9,000
+            {formatter.format((orderTotal + shipping) / 100)}
           </span>
           <div className="clear-both"></div>
         </div>
