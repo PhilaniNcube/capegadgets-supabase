@@ -22,7 +22,7 @@ function MyApp({ Component, pageProps }) {
           <QueryClientProvider client={queryClient}>
             <Hydrate state={pageProps.dehydratedState}>
               <Navbar />
-              <Component {...pageProps} />;
+              <Component {...pageProps} />
             </Hydrate>
             <ReactQueryDevtools />
           </QueryClientProvider>

@@ -10,6 +10,7 @@
     "@supabase/supabase-js": "^1.31.1",
     "analytics": "^0.8.1",
     "axios": "^0.26.1",
+    "cookie": "^0.4.2",
     "next": "latest",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

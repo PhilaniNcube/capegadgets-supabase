@@ -1,23 +1,76 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
+import useCart from '../hooks/useCart'
+import formatter from '../lib/format'
+import { useUser } from '../Context/AuthContext'
+import supabase from '../utils/supabase'
+import { useRouter } from 'next/router'
 
-export default function index() {
-  const [dropdown1, setDropdown1] = useState(false)
-  const [dropdown2, setDropdown2] = useState(false)
-  const [dropdown3, setDropdown3] = useState(false)
-  const [changeText1, setChangeText1] = useState('City')
+export default function Checkout() {
+  const router = useRouter()
 
-  const HandleText1 = (e) => {
-    setChangeText1(e)
-    setDropdown1(false)
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [address, setAddress] = useState('')
+  const [city, setCity] = useState('')
+  const [province, setProvince] = useState('')
+  const [postalCode, setPostalCode] = useState(1000)
+  const [phoneNumber, setPhoneNumber] = useState('')
+  const [paymentMethod, setPaymentMethod] = useState('Intellimali')
+
+  const {
+    cart,
+    cartTotal,
+    addToCart,
+    removeItemFromCart,
+    addCartQty,
+    reduceCartQty,
+  } = useCart()
+
+  const shipping = 16000
+
+  const { user } = useUser()
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    const { data, error } = await supabase
+      .from('Orders')
+      .insert([
+        {
+          user_id: user.id,
+          orderTotal: cartTotal,
+          shipping: shipping,
+          orderItems: cart,
+          phoneNumber: phoneNumber,
+          postalCode: postalCode,
+          email: user.email,
+          province: province,
+          firstName: firstName,
+          lastName: lastName,
+          streetAddress: address,
+          city: city,
+          paymentMethod: paymentMethod,
+        },
+      ])
+      .single()
+
+    if (error) {
+      alert('There was an error saving your order')
+    } else if (data) {
+      router.push(`/payment?id=${data.id}`)
+    }
   }
 
   return (
     <div className="overflow-y-hidden">
       <div className="flex items-center justify-center py-9 px-4 md:py-12 md:px-6 lg:py-16 lg:px-20 xl:px-44 2xl:container 2xl:mx-auto ">
         <div className="flex w-full flex-col items-center justify-center space-y-12 sm:w-9/12 lg:w-full lg:flex-row lg:space-x-10 lg:space-y-0 2xl:space-x-36">
-          <div className="flex w-full  flex-col items-start justify-start">
-            <div className>
+          <form
+            onSubmit={handleSubmit}
+            className="flex w-full  flex-col items-start justify-start"
+          >
+            <div className="my-1">
               <p className="text-3xl font-semibold leading-7 text-gray-800 lg:text-4xl lg:leading-9">
                 Check out
               </p>
@@ -36,222 +89,144 @@ export default function index() {
             </div>
             <div className="mt-8 flex w-full flex-col items-start justify-start space-y-8 ">
               <input
-                className="w-full border-b border-gray-200 px-2 py-4 text-base leading-4 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                required
+                className="w-full border-b border-gray-200 px-2 py-4 text-base leading-4 placeholder-gray-600 focus:outline-none  focus:ring-gray-500"
                 type="text"
                 placeholder="First Name"
               />
               <input
-                className="w-full border-b border-gray-200 px-2 py-4 text-base leading-4 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                required
+                className="w-full border-b border-gray-200 px-2 py-4 text-base leading-4 placeholder-gray-600 focus:outline-none  focus:ring-gray-500"
                 type="text"
                 placeholder="Last Name"
               />
               <input
-                className="w-full border-b border-gray-200 px-2 py-4 text-base leading-4 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                required
+                className="w-full border-b border-gray-200 px-2 py-4 text-base leading-4 placeholder-gray-600 focus:outline-none  focus:ring-gray-500"
                 type="text"
                 placeholder="Address"
               />
-              <input
-                className="w-full border-b border-gray-200 px-2 py-4 text-base leading-4 placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500"
-                type="text"
-                placeholder="Address (line 02)"
-              />
+
               <div className="flex w-full flex-col items-start justify-between space-y-8 sm:flex-row sm:space-y-0 sm:space-x-8">
                 <div className="relative w-full">
-                  <p
-                    id="button1"
-                    className=" w-full border-b border-gray-200 px-2 py-4 text-left text-base leading-4 text-gray-600"
-                  >
-                    {changeText1}
-                  </p>
-                  <button
-                    onClick={() => setDropdown1(!dropdown1)}
-                    className="absolute bottom-4 right-0 cursor-pointer rounded-full focus:outline-none focus:ring-2 focus:ring-gray-500"
-                  >
-                    <svg
-                      id="close"
-                      className={` transform ${
-                        dropdown1 ? 'rotate-180' : ''
-                      }  `}
-                      width={16}
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M12 6L8 10L4 6"
-                        stroke="#4B5563"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </button>
-                  <div
-                    className={`absolute top-10 z-10 mt-3 w-full  bg-white shadow ${
-                      dropdown1 ? '' : 'hidden'
-                    }`}
-                  >
-                    <div className="flex w-full  flex-col">
-                      <p
-                        tabIndex={0}
-                        onClick={() => HandleText1('London')}
-                        className="w-full cursor-pointer px-3 py-2 text-left text-base text-gray-600 hover:bg-gray-800  hover:text-white focus:bg-gray-800 focus:text-white focus:outline-none"
-                      >
-                        London
-                      </p>
-                      <p
-                        tabIndex={0}
-                        onClick={() => HandleText1('New York')}
-                        className="w-full cursor-pointer px-3 py-2 text-left text-base text-gray-600 hover:bg-gray-800  hover:text-white focus:bg-gray-800 focus:text-white focus:outline-none"
-                      >
-                        New York
-                      </p>
-                      <p
-                        tabIndex={0}
-                        onClick={() => HandleText1('Dubai')}
-                        className="w-full cursor-pointer px-3 py-2 text-left text-base text-gray-600 hover:bg-gray-800  hover:text-white focus:bg-gray-800 focus:text-white focus:outline-none"
-                      >
-                        Dubai
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div className="relative w-full">
-                  <p
-                    id="button2"
-                    className=" w-full border-b border-gray-200 px-2 py-4 text-left text-base leading-4 text-gray-600"
-                  >
-                    Region
-                    <span className="text-gray-400"> (optional)</span>
-                  </p>
-                  <button
-                    onClick={() => setDropdown2(!dropdown2)}
-                    className="absolute  bottom-4 right-0 cursor-pointer rounded-full focus:outline-none focus:ring-2 focus:ring-gray-500"
-                  >
-                    <svg
-                      id="close2"
-                      className={` transform ${
-                        dropdown2 ? 'rotate-180' : ''
-                      }  `}
-                      width={16}
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M12 6L8 10L4 6"
-                        stroke="#4B5563"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </button>
-                  <div
-                    className={`absolute top-10 z-10 mt-3 w-full  bg-white shadow ${
-                      dropdown2 ? '' : 'hidden'
-                    }`}
-                  >
-                    <div className="flex w-full  flex-col">
-                      <p
-                        tabIndex={0}
-                        onclick="changeButton2('London')"
-                        className="w-full cursor-pointer px-3 py-2 text-left text-base text-gray-600 hover:bg-gray-800  hover:text-white focus:bg-gray-800 focus:text-white focus:outline-none"
-                      >
-                        London
-                      </p>
-                      <p
-                        tabIndex={0}
-                        onclick="changeButton2('New York')"
-                        className="w-full cursor-pointer px-3 py-2 text-left text-base text-gray-600 hover:bg-gray-800  hover:text-white focus:bg-gray-800 focus:text-white focus:outline-none"
-                      >
-                        New York
-                      </p>
-                      <p
-                        tabIndex={0}
-                        onclick="changeButton2('Dubai')"
-                        className="w-full cursor-pointer px-3 py-2 text-left text-base text-gray-600 hover:bg-gray-800  hover:text-white focus:bg-gray-800 focus:text-white focus:outline-none"
-                      >
-                        Dubai
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="flex w-full flex-col items-start justify-between space-y-8 sm:flex-row sm:space-y-0 sm:space-x-8">
-                <div className="relative w-full">
-                  <p
-                    id="button3"
-                    className=" w-full border-b border-gray-200 px-2 py-4 text-left text-base leading-4 text-gray-600"
-                  >
-                    Country
-                  </p>
-                  <button
-                    onClick={() => setDropdown3(!dropdown3)}
-                    className="absolute bottom-4 right-0 cursor-pointer rounded-full focus:outline-none focus:ring-2 focus:ring-gray-500"
-                  >
-                    <svg
-                      id="close3"
-                      className={` transform ${
-                        dropdown3 ? 'rotate-180' : ''
-                      }  `}
-                      width={16}
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M12 6L8 10L4 6"
-                        stroke="#4B5563"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </button>
-                  <div
-                    id="menu3"
-                    className={`absolute top-10 z-10 mt-3 w-full  bg-white shadow ${
-                      dropdown3 ? '' : 'hidden'
-                    }`}
-                  >
-                    <div className="flex w-full  flex-col">
-                      <p
-                        tabIndex={0}
-                        onclick="changeButton3('USA')"
-                        className="w-full cursor-pointer px-3 py-2 text-left text-base text-gray-600 hover:bg-gray-800  hover:text-white focus:bg-gray-800 focus:text-white focus:outline-none"
-                      >
-                        USA
-                      </p>
-                      <p
-                        tabIndex={0}
-                        onclick="changeButton3('UK')"
-                        className="w-full cursor-pointer px-3 py-2 text-left text-base text-gray-600 hover:bg-gray-800  hover:text-white focus:bg-gray-800 focus:text-white focus:outline-none"
-                      >
-                        UK
-                      </p>
-                      <p
-                        tabIndex={0}
-                        onclick="changeButton3('Russia')"
-                        className="w-full cursor-pointer px-3 py-2 text-left text-base text-gray-600 hover:bg-gray-800  hover:text-white focus:bg-gray-800 focus:text-white focus:outline-none"
-                      >
-                        Russia
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div className="w-full">
                   <input
-                    className="w-full border-b border-gray-200 px-2 pt-4 pb-3 text-base leading-4 placeholder-gray-600 focus:outline-none focus:ring-2   focus:ring-gray-500"
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                    required
+                    className="w-full border-b border-gray-200 px-2 py-4 text-base leading-4 placeholder-gray-600 focus:outline-none  focus:ring-gray-500"
                     type="text"
-                    placeholder="Zip Code"
+                    placeholder="City"
+                  />
+                </div>
+                <div className="relative w-full">
+                  <input
+                    value={province}
+                    onChange={(e) => setProvince(e.target.value)}
+                    required
+                    className="w-full border-b border-gray-200 px-2 py-4 text-base leading-4 placeholder-gray-600 focus:outline-none  focus:ring-gray-500"
+                    type="text"
+                    placeholder="Province"
                   />
                 </div>
               </div>
-              <input
-                className="w-full border-b border-gray-200 px-2 py-4 text-base leading-4 placeholder-gray-600 focus:outline-none focus:ring-2   focus:ring-gray-500"
-                type="text"
-                placeholder="Phone Number"
-              />
+              <div className="flex w-full flex-col items-start justify-between space-y-8 sm:flex-row sm:space-y-0 sm:space-x-8">
+                <div className="relative w-full">
+                  <input
+                    value={postalCode}
+                    onChange={(e) => setPostalCode(e.target.value)}
+                    required
+                    className="w-full border-b border-gray-200 px-2 py-4 text-base leading-4 placeholder-gray-600 focus:outline-none  focus:ring-gray-500"
+                    type="number"
+                    placeholder="Postal Code"
+                  />
+                </div>
+                <div className="relative w-full">
+                  <input
+                    value={phoneNumber}
+                    onChange={(e) => setPhoneNumber(e.target.value)}
+                    required
+                    className="w-full border-b border-gray-200 px-2 py-4 text-base leading-4 placeholder-gray-600 focus:outline-none  focus:ring-gray-500"
+                    type="text"
+                    placeholder="Contact Number"
+                  />
+                </div>
+              </div>
+              <h2 className="block text-base text-gray-600">
+                Select Your Payment Method
+              </h2>
+              <div className="mx-auto flex w-full justify-between pb-12">
+                {/* Code block starts */}
+                <div className="flex items-center">
+                  <div className="relative flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full bg-white dark:bg-gray-100">
+                    <input
+                      defaultChecked
+                      type="radio"
+                      name="radio"
+                      value="Intellimali"
+                      onChange={(e) => setPaymentMethod(e.target.value)}
+                      className="checkbox absolute h-full w-full cursor-pointer appearance-none rounded-full border border-gray-400 checked:border-none focus:outline-none"
+                    />
+                    <div className="check-icon z-1 hidden h-full w-full rounded-full border-4 border-indigo-700" />
+                  </div>
+                  <p className="ml-2 text-sm font-normal leading-4 text-gray-800 ">
+                    Intellimali
+                  </p>
+                </div>
+                {/* Code block ends */}
+                {/* Code block starts */}
+                <div className="ml-6 flex items-center">
+                  <div className="relative flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full bg-white dark:bg-gray-100">
+                    <input
+                      type="radio"
+                      name="radio"
+                      value="Fundi"
+                      onChange={(e) => setPaymentMethod(e.target.value)}
+                      className="checkbox absolute h-full w-full cursor-pointer appearance-none rounded-full border border-gray-400 checked:border-none focus:outline-none"
+                    />
+                    <div className="check-icon z-1 hidden h-full w-full rounded-full border-4 border-indigo-700" />
+                  </div>
+                  <p className="ml-2 text-sm font-normal leading-4 text-gray-800 ">
+                    Fundi
+                  </p>
+                </div>
+                {/* Code block ends */}
+                {/* Code block starts */}
+                <div className="ml-6 flex items-center">
+                  <div className="relative flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full">
+                    <input
+                      type="radio"
+                      name="radio"
+                      value="Card/EFT"
+                      onChange={(e) => setPaymentMethod(e.target.value)}
+                      className="checkbox absolute h-full w-full cursor-pointer appearance-none rounded-full border border-gray-400 checked:border-none focus:outline-none"
+                    />
+                    <div className="check-icon z-1 hidden h-full w-full rounded-full border-4 border-indigo-700" />
+                  </div>
+                  <p className="ml-2 text-sm font-normal leading-4 text-gray-800 ">
+                    Card/EFT
+                  </p>
+                </div>
+                {/* Code block ends */}
+                <style>
+                  {`  .checkbox:checked {
+                        border: none;
+                    }
+                    .checkbox:checked + .check-icon {
+                        display: flex;
+                    }`}
+                </style>
+              </div>
             </div>
-            <button className="focus:ring-ocus:ring-gray-800 mt-8 w-full bg-gray-800 py-4 text-base font-medium leading-4 text-white hover:bg-black focus:outline-none focus:ring-2 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 md:w-4/12 lg:w-full">
+            <button
+              type="submit"
+              className="focus:ring-ocus:ring-gray-800 mt-8 w-full bg-gray-800 py-4 text-base font-medium leading-4 text-white hover:bg-black focus:outline-none   focus:ring-gray-500 focus:ring-offset-2 md:w-4/12 lg:w-full"
+            >
               Proceed to payment
             </button>
             <div className="mt-4 flex w-full items-center justify-start">
@@ -261,7 +236,7 @@ export default function index() {
                 </a>
               </Link>
             </div>
-          </div>
+          </form>
           <div className="flex w-full flex-col items-start justify-start bg-gray-50 p-6 md:p-14">
             <div>
               <h1 className="text-2xl font-semibold leading-6 text-gray-800">
@@ -272,13 +247,13 @@ export default function index() {
               <div className="flex w-full items-center justify-between">
                 <p className="text-lg leading-4 text-gray-600">Total items</p>
                 <p className="text-lg font-semibold leading-4 text-gray-600">
-                  20
+                  {cart.length}
                 </p>
               </div>
               <div className="flex w-full items-center justify-between">
                 <p className="text-lg leading-4 text-gray-600">Total Charges</p>
                 <p className="text-lg font-semibold leading-4 text-gray-600">
-                  $2790
+                  {formatter.format(cartTotal / 100)}
                 </p>
               </div>
               <div className="flex w-full items-center justify-between">
@@ -286,22 +261,22 @@ export default function index() {
                   Shipping charges
                 </p>
                 <p className="text-lg font-semibold leading-4 text-gray-600">
-                  $90
+                  {formatter.format(shipping / 100)}
                 </p>
               </div>
               <div className="flex w-full items-center justify-between">
                 <p className="text-lg leading-4 text-gray-600">Sub total </p>
                 <p className="text-lg font-semibold leading-4 text-gray-600">
-                  $3520
+                  {formatter.format((cartTotal + shipping) / 100)}
                 </p>
               </div>
             </div>
             <div className="mt-32 flex w-full items-center justify-between">
               <p className="text-xl font-semibold leading-4 text-gray-800">
-                Estimated Total{' '}
+                Total{' '}
               </p>
               <p className="text-lg font-semibold leading-4 text-gray-800">
-                $2900
+                {formatter.format((cartTotal + shipping) / 100)}
               </p>
             </div>
           </div>
