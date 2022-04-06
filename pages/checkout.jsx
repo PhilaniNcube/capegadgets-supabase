@@ -180,7 +180,8 @@ export default function Checkout() {
                 </div>
                 {/* Code block ends */}
                 {/* Code block starts */}
-                <div className="ml-6 flex items-center">
+                {/**
+                         <div className="ml-6 flex items-center">
                   <div className="relative flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full bg-white dark:bg-gray-100">
                     <input
                       type="radio"
@@ -195,8 +196,11 @@ export default function Checkout() {
                     Fundi
                   </p>
                 </div>
+              */}
+
                 {/* Code block ends */}
                 {/* Code block starts */}
+                {/**
                 <div className="ml-6 flex items-center">
                   <div className="relative flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full">
                     <input
@@ -212,6 +216,8 @@ export default function Checkout() {
                     Card/EFT
                   </p>
                 </div>
+              */}
+
                 {/* Code block ends */}
                 <style>
                   {`  .checkbox:checked {
