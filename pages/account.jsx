@@ -17,7 +17,7 @@ const Account = () => {
   const filteredOrders = useMemo(
     () =>
       orders.filter((order) =>
-        order.firstName.toLowerCase().includes(filter.toLowerCase())
+        order.paid.toString().toLowerCase().includes(filter.toLowerCase())
       ),
     [filter, orders]
   )
