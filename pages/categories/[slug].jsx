@@ -1,25 +1,31 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+import ProductImage from '../../components/Products/ProductImage'
 import formatter from '../../lib/format'
 import supabase from '../../utils/supabase'
 
 const Category = ({ products, category }) => {
-  console.log({ category, products })
-
   return (
     <div className="mx-auto flex max-w-6xl justify-center px-4 py-16 md:px-6 lg:px-0">
-      <div className="fle flex-col items-center justify-center">
+      <div className="flex flex-col items-center justify-center">
         <div className="flex items-start justify-start">
           <p className="text-3xl font-semibold leading-9 text-gray-800 lg:text-4xl">
             {category.name}
           </p>
         </div>
-        <div className="justify-items-between mt-8 grid gap-y-8 gap-x-8 md:grid-cols-2 lg:grid-cols-4 lg:gap-y-8">
+        <div className="justify-items-between mt-8 grid gap-y-8 gap-x-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-y-8">
           {products.map((product) => (
             <Link key={product.id} href={`/products/${product.slug}`} passHref>
-              <div className="flex flex-col items-start">
-                <div className="relative flex items-center justify-center bg-gray-100 py-12 px-16">
-                  <img src={product.image} alt="mobile" />
+              <div className="group flex cursor-pointer flex-col items-start ease-in-out group-hover:opacity-75">
+                <div className="relative flex items-center justify-center overflow-hidden rounded-md bg-gray-100 py-4 px-6">
+                  <Image
+                    width={500}
+                    height={500}
+                    src={product.image}
+                    alt={product.name}
+                    className="rounded-sm group-hover:opacity-75"
+                  />
                   <button className="absolute top-4 right-4 flex items-center justify-center rounded-full bg-white p-3.5">
                     <svg
                       className="fill-stroke text-gray-600 hover:text-gray-500"
@@ -46,12 +52,12 @@ const Category = ({ products, category }) => {
                 </div>
                 <div className="jusitfy-start mt-3 flex flex-col items-start space-y-3 px-2">
                   <div>
-                    <p className="text-lg font-medium leading-4 text-gray-800">
+                    <p className="text-sm font-medium leading-6 text-gray-800">
                       {product.name}
                     </p>
                   </div>
                   <div>
-                    <p className="text-lg leading-4 text-gray-600">
+                    <p className="text-lg font-bold leading-4 text-gray-500">
                       {formatter.format(product.price / 100)}
                     </p>
                   </div>
@@ -74,15 +80,18 @@ export async function getServerSideProps({ params: { slug } }) {
     .eq('slug', slug)
     .single()
 
-  let { data: Product } = await supabase
+  let { data: Product, error } = await supabase
     .from('Product')
-    .select('*, category(id, name)')
-    .eq('category', Category.id)
+    .select('*, category(id, name, slug, description)')
+
+  let products = Product.filter((product) => product.category.slug === slug)
+
+  console.log(products)
 
   return {
     props: {
       category: Category,
-      products: Product,
+      products,
     },
   }
 }
