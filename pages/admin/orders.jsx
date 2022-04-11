@@ -58,7 +58,7 @@ const orders = ({ Orders }) => {
             {Orders.map((order) => {
               return (
                 <Link
-                  href={`/admin / orders /${order.id}`}
+                  href={`/admin/orders/${order.id}`}
                   passHref
                   key={order.id}
                 >
