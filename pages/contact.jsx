@@ -16,7 +16,7 @@ export default function Contact() {
               Mailing Address
             </p>
             <p className="text-base leading-normal text-gray-600">
-              16 Strand Avenue, Humewood, Port Elizabeth
+              16 Strand Avenue, Humewood, Port Elizabeth.
             </p>
           </div>
           <h1 className="mt-10 text-xl leading-5 text-gray-800 md:mt-12 xl:mt-14 xl:text-2xl xl:leading-normal">
