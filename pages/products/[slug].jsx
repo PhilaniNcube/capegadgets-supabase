@@ -3,6 +3,8 @@ import ProductDetail from '../../components/Products/ProductDetail'
 import supabase from '../../utils/supabase'
 
 const Product = ({ product }) => {
+  console.log(product)
+
   return (
     <Fragment>
       <ProductDetail product={product} />
@@ -17,7 +19,7 @@ export async function getServerSideProps({ req, params: { slug } }) {
 
   let { data: Product, error } = await supabase
     .from('Product')
-    .select('*, category(id, name)')
+    .select('*, category(id, name), supplier(id, name), brand(id, name)')
     .eq('slug', slug)
     .single()
 

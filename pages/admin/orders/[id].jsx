@@ -50,6 +50,15 @@ const Order = ({ order }) => {
                       </span>
                     </p>
                   </div>
+                  <div className="mt-4 flex flex-col items-start justify-start space-y-2 md:flex-row md:space-y-0 md:space-x-6 ">
+                    <p className="text-sm leading-none text-gray-600">
+                      Supplier:{' '}
+                      <span className="text-gray-800">
+                        {' '}
+                        {item.supplier.name}
+                      </span>
+                    </p>
+                  </div>
                   <div className="mt-8 flex w-full items-center justify-between">
                     <button className="bg-gray-50 py-4 px-6 text-sm leading-none text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2">
                       Quantity:{' '}
