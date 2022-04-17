@@ -11,7 +11,7 @@ export default function Navbar() {
 
   const { cart } = useCart()
 
-  const { user } = useUser()
+  const { user, signOut } = useUser()
 
   return (
     <div className="dark:bg-gray-900">
@@ -102,11 +102,19 @@ export default function Navbar() {
               {/**Desktop User Section */}
               {user ? (
                 <ul className="hidden space-x-4 md:flex">
-                  <li className=" text-white ">Sign Out</li>
+                  <li onClick={() => signOut()} className=" text-white ">
+                    Sign Out
+                  </li>
 
-                  <Link href="/account">
-                    <a className=" text-white ">My Account</a>
-                  </Link>
+                  {user.role === 'supabase_admin' ? (
+                    <Link href="/admin">
+                      <a className=" text-white ">Admin</a>
+                    </Link>
+                  ) : (
+                    <Link href="/account">
+                      <a className=" text-white ">My Account</a>
+                    </Link>
+                  )}
                 </ul>
               ) : (
                 <Link href="/sign-in">
@@ -234,27 +242,39 @@ export default function Navbar() {
                 <ul className="flex flex-col space-y-8">
                   <Link href="/" passHref>
                     <li className="flex items-center justify-between">
-                      <a className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white">
+                      <a
+                        onClick={() => setShowMenu(false)}
+                        className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white"
+                      >
                         Home
                       </a>
                     </li>
                   </Link>
                   <Link href="/categories">
                     <li className="flex items-center justify-between">
-                      <a className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white">
+                      <a
+                        onClick={() => setShowMenu(false)}
+                        className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white"
+                      >
                         Categories
                       </a>
                     </li>
                   </Link>
                   <Link href="/blog">
                     <li className="flex items-center justify-between">
-                      <a className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white">
+                      <a
+                        onClick={() => setShowMenu(false)}
+                        className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white"
+                      >
                         Blog
                       </a>
                     </li>
                   </Link>
                   <Link href="/contact">
-                    <li className="flex items-center justify-between">
+                    <li
+                      onClick={() => setShowMenu(false)}
+                      className="flex items-center justify-between"
+                    >
                       <a className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white">
                         Contact us
                       </a>
@@ -334,11 +354,15 @@ export default function Navbar() {
               <ul className="flex flex-col space-y-8">
                 <li className="flex items-center justify-between">
                   <Link href="/">
-                    <a className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white">
+                    <a
+                      onClick={() => setShowMenuSm(false)}
+                      className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white"
+                    >
                       Home
                     </a>
                   </Link>
                   <button
+                    onClick={() => setShowMenuSm(false)}
                     aria-label="add"
                     className="text-gray-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white dark:hover:bg-gray-700"
                   >
@@ -367,11 +391,15 @@ export default function Navbar() {
                 </li>
                 <li className="flex items-center justify-between">
                   <Link href="/products">
-                    <a className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white">
+                    <a
+                      onClick={() => setShowMenuSm(false)}
+                      className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white"
+                    >
                       Products
                     </a>
                   </Link>
                   <button
+                    onClick={() => setShowMenuSm(false)}
                     aria-label="add"
                     className="text-gray-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white dark:hover:bg-gray-700"
                   >
@@ -400,11 +428,15 @@ export default function Navbar() {
                 </li>
                 <li className="flex items-center justify-between">
                   <Link href="/blog">
-                    <a className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white">
+                    <a
+                      onClick={() => setShowMenuSm(false)}
+                      className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white"
+                    >
                       Blog
                     </a>
                   </Link>
                   <button
+                    onClick={() => setShowMenuSm(false)}
                     aria-label="add"
                     className="text-gray-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white dark:hover:bg-gray-700"
                   >
@@ -433,11 +465,15 @@ export default function Navbar() {
                 </li>
                 <li className="flex items-center justify-between">
                   <Link href="/contact">
-                    <a className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white">
+                    <a
+                      onClick={() => setShowMenuSm(false)}
+                      className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white"
+                    >
                       Contact us
                     </a>
                   </Link>
                   <button
+                    onClick={() => setShowMenuSm(false)}
                     aria-label="add"
                     className="text-gray-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white dark:hover:bg-gray-700"
                   >
@@ -469,11 +505,15 @@ export default function Navbar() {
                   <Fragment>
                     <li className="flex items-center justify-between">
                       <Link href="/account">
-                        <a className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white">
+                        <a
+                          onClick={() => setShowMenuSm(false)}
+                          className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white"
+                        >
                           My Account
                         </a>
                       </Link>
                       <button
+                        onClick={() => setShowMenuSm(false)}
                         aria-label="add"
                         className="text-gray-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white dark:hover:bg-gray-700"
                       >
@@ -500,12 +540,19 @@ export default function Navbar() {
                         </svg>
                       </button>
                     </li>
-                    <li className="flex items-center justify-between">
-                      <a className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white">
+                    <li
+                      onClick={() => signOut()}
+                      className="flex items-center justify-between"
+                    >
+                      <a
+                        onClick={() => setShowMenuSm(false)}
+                        className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white"
+                      >
                         Sign Out
                       </a>
 
                       <button
+                        onClick={() => setShowMenuSm(false)}
                         aria-label="add"
                         className="text-gray-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white dark:hover:bg-gray-700"
                       >
@@ -541,6 +588,7 @@ export default function Navbar() {
                       </a>
                     </Link>
                     <button
+                      onClick={() => setShowMenuSm(false)}
                       aria-label="add"
                       className="text-gray-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white dark:hover:bg-gray-700"
                     >
