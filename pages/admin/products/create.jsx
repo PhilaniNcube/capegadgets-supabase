@@ -4,27 +4,50 @@ import Link from 'next/link'
 import slugify from 'slugify'
 import supabase from '../../../utils/supabase'
 import cookie from 'cookie'
+import { useRouter } from 'next/router'
 
 const Product = ({ brands, suppliers, categories }) => {
+  const router = useRouter()
+
   const [productName, setProductName] = useState('')
   const [productSlug, setProductSlug] = useState('')
   const [productSku, setProductSku] = useState('')
   const [productSize, setProductSize] = useState('')
   const [productColour, setProductColour] = useState('')
-  const [productPrice, setProductPrice] = useState('')
-  const [productCostPrice, setProductCostPrice] = useState('')
+  const [productPrice, setProductPrice] = useState(0)
+  const [productCostPrice, setProductCostPrice] = useState(0)
   const [productBrand, setProductBrand] = useState('')
   const [productCategory, setProductCategory] = useState('')
   const [productStockOnHand, setProductStockOnHand] = useState(0)
   const [productImage, setProductImage] = useState('')
-  const [productRam, setProductRam] = useState('')
+  const [productRam, setProductRam] = useState(0)
   const [productSupplier, setProductSupplier] = useState('')
-  const [productFeatured, setProductFeatured] = useState('')
-  const [productBluetooth, setProductBluetooth] = useState('')
+  const [productFeatured, setProductFeatured] = useState(false)
+  const [productBluetooth, setProductBluetooth] = useState(false)
   const [productDescription, setProductDescription] = useState('')
-  const [productSpace, setProductSpace] = useState('')
+  const [productSpace, setProductSpace] = useState(0)
 
   const [loading, setLoading] = useState(false)
+
+  const handleFileUpload = async (e) => {
+    if (!e.target.files || e.target.files.length === 0) {
+      throw new Error('You must select an image to upload.')
+    }
+
+    const file = e.target.files[0]
+    const fileExt = file.name.split('.').pop()
+    const fileName = `${Math.random()}.${fileExt}`
+
+    let upload = await supabase.storage
+      .from('images')
+      .upload(`${fileName}`, file)
+
+    const fileUrl = upload.data.Key
+
+    setProductImage(
+      `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${fileUrl}`
+    )
+  }
 
   const handleSubmit = async (e) => {
     setLoading(true)
@@ -33,36 +56,35 @@ const Product = ({ brands, suppliers, categories }) => {
 
     alert('Make sure that prices are in cents')
 
-    const { data, error } = await supabase
-      .from('Product')
-      .insert([
-        {
-          bluetooth: productBluetooth,
-          name: productName,
-          slug: slugify(productSlug, '_'),
-          description: productDescription,
-          sku: productSku,
-          size: productSize,
-          colour: productColour,
-          price: productPrice,
-          costPrice: productCostPrice,
-          featured: productFeatured,
-          category: productCategory,
-          brand: productBrand,
-          category: productCategory,
-          stockOnHand: productStockOnHand,
-          image: productImage,
-          ram: productRam,
-          space: productSpace,
-          bluetooth: productBluetooth,
-          supplier: productSupplier,
-        },
-      ])
-      .single()
+    const { data, error } = await supabase.from('Product').insert([
+      {
+        bluetooth: productBluetooth,
+        name: productName,
+        slug: slugify(productSlug, '_'),
+        description: productDescription,
+        sku: productSku,
+        size: productSize,
+        colour: productColour,
+        price: parseInt(productPrice),
+        costPrice: parseInt(productCostPrice),
+        featured: productFeatured,
+        category: productCategory,
+        brand: productBrand,
+        category: productCategory,
+        stockOnHand: parseInt(productStockOnHand),
+        image: productImage,
+        ram: parseInt(productRam),
+        space: parseInt(productSpace),
+        bluetooth: productBluetooth,
+        supplier: productSupplier,
+      },
+    ])
 
-    console.log(data)
+    console.log({ data, error })
 
     setLoading(false)
+
+    router.push('/products')
   }
 
   return (
@@ -241,7 +263,7 @@ const Product = ({ brands, suppliers, categories }) => {
                         id="productCostPrice"
                         name="productCostPrice"
                         value={productCostPrice}
-                        onChange={(e) => setProductPrice(e.target.value)}
+                        onChange={(e) => setProductCostPrice(e.target.value)}
                         required
                         className="rounded border border-gray-400 bg-transparent py-3 px-3 text-sm text-gray-500  shadow-sm"
                       />
@@ -289,7 +311,7 @@ const Product = ({ brands, suppliers, categories }) => {
                         onChange={(e) => setProductBrand(e.target.value)}
                         className="rounded border border-gray-400 bg-transparent py-3 px-3 text-sm text-gray-500  shadow-sm"
                       >
-                        <option value="">Select Category</option>
+                        <option value="">Select Brand</option>
                         {brands.map((brand) => (
                           <option key={brand.id} value={brand.id}>
                             {brand.name}
@@ -320,6 +342,27 @@ const Product = ({ brands, suppliers, categories }) => {
                           </option>
                         ))}
                       </select>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center space-x-4">
+                    <div class="flex justify-start">
+                      <div className="mb-3 w-96">
+                        <label
+                          htmlFor="productImage"
+                          className="pb-2 text-sm font-bold text-gray-800"
+                        >
+                          Image Upload
+                        </label>
+                        <input
+                          className="form-control m-0focus:text-gray-700 block w-full rounded border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 text-base font-normal text-gray-700 transition ease-in-out focus:border-blue-600 focus:bg-white focus:outline-none"
+                          onChange={handleFileUpload}
+                          type="file"
+                          accept="image/*"
+                          name="productImage"
+                          id="productImage"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
