@@ -273,7 +273,7 @@ const Product = ({ product, categories }) => {
                         id="productCostPrice"
                         name="productCostPrice"
                         value={productCostPrice}
-                        onChange={(e) => setProductPrice(e.target.value)}
+                        onChange={(e) => setProductCostPrice(e.target.value)}
                         required
                         className="rounded border border-gray-400 bg-transparent py-3 px-3 text-sm text-gray-500  shadow-sm"
                       />
