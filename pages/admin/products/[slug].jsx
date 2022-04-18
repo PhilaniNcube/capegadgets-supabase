@@ -278,6 +278,23 @@ const Product = ({ product, categories }) => {
                         className="rounded border border-gray-400 bg-transparent py-3 px-3 text-sm text-gray-500  shadow-sm"
                       />
                     </div>
+                    <div className="mb-6 flex flex-col md:w-1/2 lg:w-1/2 xl:w-1/4">
+                      <label
+                        htmlFor="productStockOnHand"
+                        className="pb-2 text-sm font-bold text-gray-800 "
+                      >
+                        Stock On Hand
+                      </label>
+                      <input
+                        type="number"
+                        id="productStockOnHand"
+                        name="productStockOnHand"
+                        value={productStockOnHand}
+                        onChange={(e) => setProductStockOnHand(e.target.value)}
+                        required
+                        className="rounded border border-gray-400 bg-transparent py-3 px-3 text-sm text-gray-500  shadow-sm"
+                      />
+                    </div>
                   </div>
 
                   <div className="mb-6 flex flex-col md:w-1/2 lg:w-1/2 xl:w-1/4">
