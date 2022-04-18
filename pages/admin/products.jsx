@@ -132,6 +132,7 @@ export async function getServerSideProps({ req }) {
     let { data: Product, error } = await supabase
       .from('Product')
       .select('*, category(id, name), brand(id, name), supplier(id, name)')
+      .order('name', { ascending: true })
 
     return {
       props: {

@@ -54,13 +54,22 @@ const Product = ({ brands, suppliers, categories }) => {
 
     e.preventDefault()
 
+    setProductSlug(
+      slugify(productName, {
+        replacement: '_',
+        lower: true,
+      })
+    )
+
+    console.log('Product Slug', productSlug)
+
     alert('Make sure that prices are in cents')
 
     const { data, error } = await supabase.from('Product').insert([
       {
         bluetooth: productBluetooth,
         name: productName,
-        slug: slugify(productSlug, '_'),
+        slug: productSlug,
         description: productDescription,
         sku: productSku,
         size: productSize,
@@ -84,7 +93,7 @@ const Product = ({ brands, suppliers, categories }) => {
 
     setLoading(false)
 
-    router.push('/products')
+    router.push('/admin/products')
   }
 
   return (
@@ -171,8 +180,11 @@ const Product = ({ brands, suppliers, categories }) => {
                         type="text"
                         id="productSlug"
                         name="productSlug"
-                        value={productSlug}
-                        disabled={true}
+                        value={slugify(productName, {
+                          replacement: '_',
+                          lower: true,
+                        })}
+                        onChange={(e) => setProductSlug(e.target.value)}
                         className="rounded border border-gray-400 bg-transparent py-3 pl-3 text-sm text-gray-500 shadow-sm "
                       />
                     </div>
