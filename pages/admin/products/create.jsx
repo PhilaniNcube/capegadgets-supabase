@@ -180,10 +180,7 @@ const Product = ({ brands, suppliers, categories }) => {
                         type="text"
                         id="productSlug"
                         name="productSlug"
-                        value={slugify(productName, {
-                          replacement: '_',
-                          lower: true,
-                        })}
+                        value={productSlug}
                         onChange={(e) => setProductSlug(e.target.value)}
                         className="rounded border border-gray-400 bg-transparent py-3 pl-3 text-sm text-gray-500 shadow-sm "
                       />
