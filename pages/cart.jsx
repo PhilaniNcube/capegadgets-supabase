@@ -4,6 +4,7 @@ import Image from 'next/image'
 import useCart from '../hooks/useCart'
 import formatter from '../lib/format'
 import { useUser } from '../Context/AuthContext'
+import analytics from '../utils/analytics'
 
 export default function Cart() {
   const [counter1, setCounter1] = useState(1)
@@ -22,10 +23,12 @@ export default function Cart() {
 
   const shipping = 16000
 
+  console.log(cart)
+
   return (
     <div className="container mx-auto">
       <div className="w-full py-9 px-4 md:py-12 md:px-6">
-        <div className>
+        <div className="px-0">
           <div className="text-base leading-4 text-gray-600 lg:leading-none">
             <span>
               <Link href="/">
@@ -280,7 +283,14 @@ export default function Cart() {
               </div>
               {user ? (
                 <Link href="/checkout">
-                  <button className="hover: mt-4 w-full bg-gray-800 py-5 text-base font-medium leading-none text-gray-50 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-offset-2 ">
+                  <button
+                    onClick={() =>
+                      analytics.track('begin_checkout', {
+                        items: cart,
+                      })
+                    }
+                    className="hover: mt-4 w-full bg-gray-800 py-5 text-base font-medium leading-none text-gray-50 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-offset-2 "
+                  >
                     Proceed to checkout
                   </button>
                 </Link>

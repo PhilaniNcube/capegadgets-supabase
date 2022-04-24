@@ -3,6 +3,7 @@ import cookie from 'cookie'
 import axios from 'axios'
 import supabase from '../../utils/supabase'
 import formatter from '../../lib/format'
+import analytics from '../../utils/analytics'
 
 const Order = ({ order, error }) => {
   console.log('order', order)
@@ -13,6 +14,14 @@ const Order = ({ order, error }) => {
 
     if (order.paid === true && order.paymentMethod === 'Intellimali') {
       console.log('confirm Order')
+
+      analytics.track('purchase', {
+        items: order.orderItems,
+        transaction_id: order.id,
+        value: parseFloat(order.orderTotal / 100),
+        tax: parseFloat((order.orderTotal * 0.15) / 100),
+        shipping: parseFloat(order.shipping / 100),
+      })
 
       const res = await axios.post(`/api/confirm-intelli`, {
         cardNumber: localStorage.getItem('cardNumber'),

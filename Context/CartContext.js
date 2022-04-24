@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import analytics from '../utils/analytics'
 
 export const CartContext = createContext()
 
@@ -23,6 +24,10 @@ const CartProvider = ({ children }) => {
 
   const addToCart = (product, qty = 1) => {
     const item = cart.find((i) => i.id === product.id)
+
+    analytics.track('add_to_cart', {
+      items: [item],
+    })
 
     if (item) {
       // increase qty

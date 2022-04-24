@@ -31,6 +31,11 @@ export default function ProductsGrid({ products, filter, setFilter }) {
           {products.map((product) => (
             <Link key={product.id} href={`/products/${product.slug}`} passHref>
               <div
+                onClick={() =>
+                  analytics.track('select_item', {
+                    items: [product],
+                  })
+                }
                 key={product.id}
                 className="aspect-square rounded-lg hover:bg-gray-50 hover:shadow-lg"
               >
