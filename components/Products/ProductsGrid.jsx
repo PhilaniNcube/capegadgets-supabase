@@ -38,7 +38,7 @@ export default function ProductsGrid({ products, filter, setFilter }) {
                   width={600}
                   height={600}
                   src={product.image}
-                  alt="table image"
+                  alt={product.name}
                   className="aspect-square w-full p-2"
                 />
                 <div className="px-4 py-4">
