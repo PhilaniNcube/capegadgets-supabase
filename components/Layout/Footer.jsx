@@ -31,40 +31,12 @@ const Footer = () => {
                 </p>
               </a>
             </Link>
-            <Link href="/returns">
-              <a>
-                <p className="cursor-pointer pb-6 text-base leading-4 text-gray-800">
-                  Return policy
-                </p>
-              </a>
-            </Link>
-            <Link href="/sitemap.xml">
-              <a>
-                <p className="cursor-pointer pb-6 text-base leading-4 text-gray-800">
-                  Sitemap
-                </p>
-              </a>
-            </Link>
           </div>
           <div className="mt-9 items-center justify-center md:mt-0 md:flex md:w-1/2">
             <div className="items-left flex flex-col justify-start">
               <h2 className="pb-7 text-xl font-extrabold leading-tight text-gray-800">
                 Online services
               </h2>
-              <Link href="/payment-methods">
-                <a>
-                  <p className="cursor-pointer pb-6 text-base leading-4 text-gray-800">
-                    Payment methods
-                  </p>
-                </a>
-              </Link>
-              <Link href="/shipping">
-                <a>
-                  <p className="cursor-pointer pb-6 text-base leading-4 text-gray-800">
-                    Shipping options
-                  </p>
-                </a>
-              </Link>
 
               <Link href="/account">
                 <a>
@@ -87,13 +59,7 @@ const Footer = () => {
               <h2 className="pb-7 text-xl font-extrabold leading-tight text-gray-800">
                 Privacy &amp; legal
               </h2>
-              <Link href="/cookies">
-                <a>
-                  <p className="cursor-pointer pb-6 text-base leading-4 text-gray-800">
-                    Cookies
-                  </p>
-                </a>
-              </Link>
+
               <Link href="/privacy">
                 <a>
                   <p className="cursor-pointer pb-6 text-base leading-4 text-gray-800">
@@ -117,27 +83,26 @@ const Footer = () => {
               <h2 className="pb-7 text-xl font-extrabold leading-tight text-gray-800">
                 Privacy &amp; legal
               </h2>
-              <a href="/">
-                <p className="cursor-pointer pb-6 text-base leading-4 text-gray-800">
-                  Cookies
-                </p>
-              </a>
-              <a href="/">
-                <p className="cursor-pointer pb-6 text-base leading-4 text-gray-800">
-                  Privacy policy
-                </p>
-              </a>
-              <a href="/">
-                <p className="cursor-pointer pb-6 text-base leading-4 text-gray-800">
-                  Terms &amp; conditions
-                </p>
-              </a>
+              <Link href="/privacy">
+                <a>
+                  <p className="cursor-pointer pb-6 text-base leading-4 text-gray-800">
+                    Privacy policy
+                  </p>
+                </a>
+              </Link>
+              <Link href="/terms">
+                <a>
+                  <p className="cursor-pointer pb-6 text-base leading-4 text-gray-800">
+                    Terms &amp; conditions
+                  </p>
+                </a>
+              </Link>
             </div>
           </div>
           <div className="mt-10 items-center sm:flex sm:pt-0 md:mt-0 md:w-1/2 lg:justify-end lg:justify-center">
             <div className="items-left flex flex-col justify-start">
               <h2 className="pb-7 text-xl font-extrabold leading-tight text-gray-800">
-                More from Cape Gadgets
+                Cape Gadgets
               </h2>
               <Link href="/">
                 <a>
@@ -150,13 +115,6 @@ const Footer = () => {
                 <a>
                   <p className="cursor-pointer pb-6 text-base leading-4 text-gray-800">
                     Blog
-                  </p>
-                </a>
-              </Link>
-              <Link href="/careers">
-                <a>
-                  <p className="cursor-pointer pb-6 text-base leading-4 text-gray-800">
-                    Careers at Cape Gadgets
                   </p>
                 </a>
               </Link>

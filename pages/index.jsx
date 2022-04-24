@@ -9,8 +9,6 @@ import getProducts from '../lib/getProducts'
 import { dehydrate, QueryClient, useQuery } from 'react-query'
 
 const Home = ({ products }) => {
-  console.log(products)
-
   return (
     <Fragment>
       <Head>
