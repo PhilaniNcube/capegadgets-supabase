@@ -45,13 +45,7 @@ export default function Navbar() {
                     </a>
                   </li>
                 </Link>
-                <Link href="/blog" passhref>
-                  <li className="flex cursor-pointer items-center space-x-2">
-                    <a className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white dark:hover:text-gray-300">
-                      Blog
-                    </a>
-                  </li>
-                </Link>
+
                 <Link href="/contact" passhref>
                   <li className="flex cursor-pointer items-center space-x-2">
                     <a className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white dark:hover:text-gray-300">
@@ -260,16 +254,7 @@ export default function Navbar() {
                       </a>
                     </li>
                   </Link>
-                  <Link href="/blog">
-                    <li className="flex items-center justify-between">
-                      <a
-                        onClick={() => setShowMenu(false)}
-                        className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white"
-                      >
-                        Blog
-                      </a>
-                    </li>
-                  </Link>
+
                   <Link href="/contact">
                     <li
                       onClick={() => setShowMenu(false)}
@@ -426,43 +411,7 @@ export default function Navbar() {
                     </svg>
                   </button>
                 </li>
-                <li className="flex items-center justify-between">
-                  <Link href="/blog">
-                    <a
-                      onClick={() => setShowMenuSm(false)}
-                      className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white"
-                    >
-                      Blog
-                    </a>
-                  </Link>
-                  <button
-                    onClick={() => setShowMenuSm(false)}
-                    aria-label="add"
-                    className="text-gray-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white dark:hover:bg-gray-700"
-                  >
-                    <svg
-                      className="fill-stroke"
-                      width={16}
-                      height={16}
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M8 3.33301V12.6663"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                      <path
-                        d="M3.33203 8H12.6654"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </button>
-                </li>
+
                 <li className="flex items-center justify-between">
                   <Link href="/contact">
                     <a
