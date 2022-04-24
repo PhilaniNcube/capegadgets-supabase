@@ -17,7 +17,7 @@ export default function ProductsGrid({ products, filter, setFilter }) {
               id="search"
               value={filter}
               onChange={(e) => setFilter(e.target.value)}
-              className="flex h-10 items-center rounded border border-gray-300 bg-white pr-20 pl-10 text-sm font-normal text-gray-600 shadow focus:border focus:border-indigo-700 focus:outline-none dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 sm:pr-32"
+              className="flex h-10 items-center rounded border border-gray-300 bg-white pr-20 pl-10 text-sm font-normal text-gray-600 shadow focus:border focus:border-sky-700 focus:outline-none sm:pr-32"
               placeholder="Search product"
             />
           </div>
