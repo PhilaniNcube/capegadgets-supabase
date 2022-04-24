@@ -8,7 +8,7 @@ export default function ProductsGrid({ products, filter, setFilter }) {
     <Fragment>
       <div className="container mx-auto gap-x-4 px-4 py-12 md:px-6 lg:px-8">
         <h1 className="text-xl font-medium leading-4 text-gray-800 md:text-2xl md:leading-6 lg:text-4xl lg:leading-9">
-          Shop All
+          All Products
         </h1>
         <div className="mt-8 flex flex-col ">
           <div className="relative">
