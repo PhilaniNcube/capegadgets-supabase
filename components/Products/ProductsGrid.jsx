@@ -2,6 +2,7 @@ import React, { Fragment, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import formatter from '../../lib/format'
+import analytics from '../../utils/analytics'
 
 export default function ProductsGrid({ products, filter, setFilter }) {
   return (

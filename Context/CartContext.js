@@ -26,7 +26,7 @@ const CartProvider = ({ children }) => {
     const item = cart.find((i) => i.id === product.id)
 
     analytics.track('add_to_cart', {
-      items: [item],
+      items: cart,
     })
 
     if (item) {
