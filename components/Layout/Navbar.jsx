@@ -24,7 +24,7 @@ export default function Navbar() {
               aria-label="Logo"
             >
               <img
-                src="/images/logo-wide.png"
+                src="/images/logo_white.svg"
                 alt="Cape gadgets"
                 className="h-12 object-cover"
               />
