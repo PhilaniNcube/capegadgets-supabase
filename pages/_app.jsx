@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import UserProvider from '../Context/AuthContext'
 import CartProvider from '../Context/CartContext'
 import Navbar from '../components/Layout/Navbar'
+import Footer from '../components/Layout/Footer'
 import analytics from '../utils/analytics'
 import '../styles/globals.css'
 
@@ -24,6 +25,7 @@ function MyApp({ Component, pageProps }) {
               <Navbar />
               <Component {...pageProps} />
             </Hydrate>
+            <Footer />
             <ReactQueryDevtools />
           </QueryClientProvider>
         </CartProvider>
