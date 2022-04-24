@@ -287,6 +287,7 @@ export default function Cart() {
                     onClick={() =>
                       analytics.track('begin_checkout', {
                         items: cart,
+                        value: cartTotal,
                       })
                     }
                     className="hover: mt-4 w-full bg-gray-800 py-5 text-base font-medium leading-none text-gray-50 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-offset-2 "
