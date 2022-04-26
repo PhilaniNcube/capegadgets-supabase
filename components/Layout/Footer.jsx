@@ -99,7 +99,7 @@ const Footer = () => {
               </Link>
             </div>
           </div>
-          <div className="mt-10 items-center sm:flex sm:pt-0 md:mt-0 md:w-1/2 lg:justify-end lg:justify-center">
+          <div className="mt-10 items-center sm:flex sm:pt-0 md:mt-0 md:w-1/2 lg:justify-end ">
             <div className="items-left flex flex-col justify-start">
               <h2 className="pb-7 text-xl font-extrabold leading-tight text-gray-800">
                 Cape Gadgets
