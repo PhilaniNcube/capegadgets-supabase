@@ -102,17 +102,17 @@ export default function Navbar() {
 
                   {user.role === 'supabase_admin' ? (
                     <Link href="/admin">
-                      <a className=" text-white ">Admin</a>
+                      <a className=" text-slate-800 dark:text-white ">Admin</a>
                     </Link>
                   ) : (
                     <Link href="/account">
-                      <a className=" text-white ">My Account</a>
+                      <a className="text-slate-800 dark:text-white">My Account</a>
                     </Link>
                   )}
                 </ul>
               ) : (
                 <Link href="/sign-in">
-                  <a className="hidden text-white md:block">Sign In</a>
+                  <a className="hidden text-slate-800 dark:text-white md:block">Sign In</a>
                 </Link>
               )}
 
