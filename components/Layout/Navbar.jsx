@@ -14,7 +14,7 @@ export default function Navbar() {
   const { user, signOut } = useUser()
 
   return (
-    <div className="dark:bg-gray-900">
+    <div className="">
       <div className="container relative mx-auto">
         <div className="mx-4 py-4 md:mx-6 md:py-5 lg:py-9">
           <div className="flex items-center justify-between">
@@ -24,7 +24,7 @@ export default function Navbar() {
               aria-label="Logo"
             >
               <img
-                src="/images/logo_white.svg"
+                src="/images/logo-wide.png"
                 alt="Cape gadgets"
                 className="h-12 object-cover"
               />
@@ -33,14 +33,14 @@ export default function Navbar() {
               <ul className="flex items-center space-x-14">
                 <Link href="/" passHref>
                   <li className="flex cursor-pointer items-center space-x-2">
-                    <a className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white dark:hover:text-gray-300">
+                    <a className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800  ">
                       Home
                     </a>
                   </li>
                 </Link>
                 <Link href="/categories">
                   <li className="flex cursor-pointer items-center space-x-2">
-                    <a className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white dark:hover:text-gray-300">
+                    <a className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800  ">
                       Categories
                     </a>
                   </li>
@@ -48,7 +48,7 @@ export default function Navbar() {
 
                 <Link href="/contact" passhref>
                   <li className="flex cursor-pointer items-center space-x-2">
-                    <a className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white dark:hover:text-gray-300">
+                    <a className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800  ">
                       Contact us
                     </a>
                   </li>
@@ -59,7 +59,7 @@ export default function Navbar() {
               <Link href="/cart">
                 <a
                   aria-label="Go to Cart"
-                  className="relative hidden cursor-pointer rounded text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white md:block"
+                  className="relative hidden cursor-pointer rounded text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800  md:block"
                 >
                   {cart.length > 0 && (
                     <div className="absolute -top-2 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-sky-600  text-white">
@@ -102,24 +102,24 @@ export default function Navbar() {
 
                   {user.role === 'supabase_admin' ? (
                     <Link href="/admin">
-                      <a className=" text-slate-800 dark:text-white ">Admin</a>
+                      <a className=" text-slate-800  ">Admin</a>
                     </Link>
                   ) : (
                     <Link href="/account">
-                      <a className="text-slate-800 dark:text-white">My Account</a>
+                      <a className="text-slate-800 ">My Account</a>
                     </Link>
                   )}
                 </ul>
               ) : (
                 <Link href="/sign-in">
-                  <a className="hidden text-slate-800 dark:text-white md:block">Sign In</a>
+                  <a className="hidden text-slate-800  md:block">Sign In</a>
                 </Link>
               )}
 
               <button
                 aria-label="open Menu"
                 onClick={() => setShowMenu(true)}
-                className="hidden rounded text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white md:block lg:hidden"
+                className="hidden rounded text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800  md:block lg:hidden"
               >
                 <svg
                   className="fill-stroke"
@@ -156,7 +156,7 @@ export default function Navbar() {
               <button
                 aria-label="open Menu"
                 onClick={() => setShowMenuSm(true)}
-                className="rounded text-gray-800 dark:text-white md:hidden"
+                className="rounded text-gray-800  md:hidden"
               >
                 <svg
                   className="fill-stroke"
@@ -198,11 +198,11 @@ export default function Navbar() {
           id="md-menu"
           className={`${
             showMenu ? ' md:block' : 'hidden'
-          } absolute inset-0 z-10 h-screen w-full bg-white bg-opacity-70 dark:bg-gray-800 dark:bg-opacity-70 lg:hidden`}
+          } absolute inset-0 z-10 h-screen w-full bg-white bg-opacity-70 lg:hidden`}
         >
           <div className="relative h-screen w-full">
-            <div className="absolute right-0 top-0 h-full w-1/2 justify-center bg-white p-6 dark:bg-gray-900">
-              <div className="flex items-center justify-between border-b border-gray-200 pb-4 dark:border-gray-700">
+            <div className="absolute right-0 top-0 h-full w-1/2 justify-center bg-white p-6 ">
+              <div className="flex items-center justify-between border-b border-gray-200 pb-4 ">
                 <div className="mx-2 flex items-center space-x-3"></div>
                 <button
                   onClick={() => setShowMenu(false)}
@@ -210,7 +210,7 @@ export default function Navbar() {
                   className="focus:outline-none focus:ring-2 focus:ring-gray-800"
                 >
                   <svg
-                    className="fill-stroke text-gray-800 dark:text-white"
+                    className="fill-stroke text-gray-800 "
                     width={16}
                     height={16}
                     viewBox="0 0 16 16"
@@ -238,7 +238,7 @@ export default function Navbar() {
                     <li className="flex items-center justify-between">
                       <a
                         onClick={() => setShowMenu(false)}
-                        className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white"
+                        className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 "
                       >
                         Home
                       </a>
@@ -248,7 +248,7 @@ export default function Navbar() {
                     <li className="flex items-center justify-between">
                       <a
                         onClick={() => setShowMenu(false)}
-                        className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white"
+                        className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 "
                       >
                         Categories
                       </a>
@@ -260,7 +260,7 @@ export default function Navbar() {
                       onClick={() => setShowMenu(false)}
                       className="flex items-center justify-between"
                     >
-                      <a className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white">
+                      <a className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 ">
                         Contact us
                       </a>
                     </li>
@@ -276,14 +276,14 @@ export default function Navbar() {
           id="mobile-menu"
           className={`${
             showMenuSm ? 'flex' : 'hidden'
-          } absolute inset-0 z-10 h-screen w-full flex-col bg-white pt-6 dark:bg-gray-900 md:hidden`}
+          } absolute inset-0 z-10 h-screen w-full flex-col bg-white pt-6  md:hidden`}
         >
-          <div className="justify-center bg-white p-6 dark:bg-gray-900">
-            <div className="flex items-center justify-between border-b border-gray-200 pb-4 dark:border-gray-700">
+          <div className="justify-center bg-white p-6 ">
+            <div className="flex items-center justify-between border-b border-gray-200 pb-4 ">
               <div className="flex items-center space-x-3">
                 <div>
                   <svg
-                    className="fill-stroke text-gray-800 dark:text-white"
+                    className="fill-stroke text-gray-800 "
                     width={20}
                     height={20}
                     viewBox="0 0 20 20"
@@ -310,7 +310,7 @@ export default function Navbar() {
               <button
                 onClick={() => setShowMenuSm(false)}
                 aria-label="close menu"
-                className="text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white"
+                className="text-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-800 "
               >
                 <svg
                   className="fill-stroke"
@@ -341,7 +341,7 @@ export default function Navbar() {
                   <Link href="/">
                     <a
                       onClick={() => setShowMenuSm(false)}
-                      className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white"
+                      className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 "
                     >
                       Home
                     </a>
@@ -349,7 +349,7 @@ export default function Navbar() {
                   <button
                     onClick={() => setShowMenuSm(false)}
                     aria-label="add"
-                    className="text-gray-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white dark:hover:bg-gray-700"
+                    className="text-gray-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-800  "
                   >
                     <svg
                       className="fill-stroke"
@@ -378,7 +378,7 @@ export default function Navbar() {
                   <Link href="/products">
                     <a
                       onClick={() => setShowMenuSm(false)}
-                      className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white"
+                      className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 "
                     >
                       Products
                     </a>
@@ -386,7 +386,7 @@ export default function Navbar() {
                   <button
                     onClick={() => setShowMenuSm(false)}
                     aria-label="add"
-                    className="text-gray-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white dark:hover:bg-gray-700"
+                    className="text-gray-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-800  "
                   >
                     <svg
                       className="fill-stroke"
@@ -416,7 +416,7 @@ export default function Navbar() {
                   <Link href="/contact">
                     <a
                       onClick={() => setShowMenuSm(false)}
-                      className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white"
+                      className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 "
                     >
                       Contact us
                     </a>
@@ -424,7 +424,7 @@ export default function Navbar() {
                   <button
                     onClick={() => setShowMenuSm(false)}
                     aria-label="add"
-                    className="text-gray-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white dark:hover:bg-gray-700"
+                    className="text-gray-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-800  "
                   >
                     <svg
                       className="fill-stroke"
@@ -456,7 +456,7 @@ export default function Navbar() {
                       <Link href="/account">
                         <a
                           onClick={() => setShowMenuSm(false)}
-                          className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white"
+                          className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 "
                         >
                           My Account
                         </a>
@@ -464,7 +464,7 @@ export default function Navbar() {
                       <button
                         onClick={() => setShowMenuSm(false)}
                         aria-label="add"
-                        className="text-gray-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white dark:hover:bg-gray-700"
+                        className="text-gray-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-800  "
                       >
                         <svg
                           className="fill-stroke"
@@ -495,7 +495,7 @@ export default function Navbar() {
                     >
                       <a
                         onClick={() => setShowMenuSm(false)}
-                        className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white"
+                        className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 "
                       >
                         Sign Out
                       </a>
@@ -503,7 +503,7 @@ export default function Navbar() {
                       <button
                         onClick={() => setShowMenuSm(false)}
                         aria-label="add"
-                        className="text-gray-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white dark:hover:bg-gray-700"
+                        className="text-gray-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-800  "
                       >
                         <svg
                           className="fill-stroke"
@@ -532,14 +532,14 @@ export default function Navbar() {
                 ) : (
                   <li className="flex items-center justify-between">
                     <Link href="/sign-in">
-                      <a className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white">
+                      <a className="text-base text-gray-800 hover:underline focus:outline-none focus:ring-2 focus:ring-gray-800 ">
                         Sign In
                       </a>
                     </Link>
                     <button
                       onClick={() => setShowMenuSm(false)}
                       aria-label="add"
-                      className="text-gray-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-800 dark:text-white dark:hover:bg-gray-700"
+                      className="text-gray-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-800  "
                     >
                       <svg
                         className="fill-stroke"
