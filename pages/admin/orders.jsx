@@ -155,6 +155,7 @@ export async function getServerSideProps({ req }) {
       .from('Orders')
       .select('*')
       .order('paid', { ascending: false })
+      .order('created_at', { ascending: false })
 
     return {
       props: {
