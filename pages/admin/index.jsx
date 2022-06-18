@@ -3,30 +3,46 @@ import cookie from 'cookie'
 import supabase from '../../utils/supabase'
 import Head from 'next/head'
 import Link from 'next/link'
+import { useQuery } from 'react-query'
+import { getPaidOrdersCount, getTotalOrdersValue } from '../../lib/getStats'
+import formatter from '../../lib/format'
 
-const index = () => {
+const Admin = () => {
+  let { data, isLoading, isSuccess, isFetching, isError } = useQuery(
+    'orders_count',
+    getPaidOrdersCount,
+    {
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+    }
+  )
+
+  let ordersValueQuery = useQuery('orders_value', getTotalOrdersValue, {
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+  })
+
   return (
     <Fragment>
       <Head>
         <title>Admin | Capegadgets</title>
       </Head>
       <div className="mx-auto mt-4 max-w-7xl px-6 md:px-4 lg:px-0">
-        <div className="grid grid-cols-2 gap-3 text-white md:gap-6 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-3 text-white md:gap-6">
           <div className="flex flex-col items-center justify-center rounded-md bg-slate-800 p-4 shadow-md">
             <h2 className="text-center text-2xl">Orders</h2>
-            <p className="text-base font-medium">Last Week: (10)</p>
+            <p className="text-base font-medium">
+              {isLoading ? 'Loading...' : data}
+            </p>
           </div>
           <div className="flex flex-col items-center justify-center rounded-md bg-slate-800 p-4 shadow-md">
             <h2 className="text-center text-2xl">Orders Value</h2>
-            <p className="text-base font-medium">Last Week: (R3000)</p>
-          </div>
-          <div className="flex flex-col items-center justify-center rounded-md bg-slate-800 p-4 shadow-md">
-            <h2 className="text-center text-2xl">Orders Cost</h2>
-            <p className="text-base font-medium">Last Week: (R2000)</p>
-          </div>
-          <div className="flex flex-col items-center justify-center rounded-md bg-slate-800 p-4 shadow-md">
-            <h2 className="text-center text-2xl">Users</h2>
-            <p className="text-base font-medium"> 20</p>
+            <p className="text-base font-medium">
+              {' '}
+              {ordersValueQuery.isLoading
+                ? 'Loading...'
+                : formatter.format(ordersValueQuery.data / 100)}
+            </p>
           </div>
         </div>
 
@@ -52,7 +68,7 @@ const index = () => {
   )
 }
 
-export default index
+export default Admin
 
 export async function getServerSideProps({ req }) {
   const { user } = await supabase.auth.api.getUserByCookie(req)

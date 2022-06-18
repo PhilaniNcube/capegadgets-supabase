@@ -5,9 +5,8 @@ import cookie from 'cookie'
 import formatter from '../../lib/format'
 import supabase, { service } from '../../utils/supabase'
 
-const orders = ({ Orders }) => {
-  console.log(Orders)
-
+const orders = ({ Orders, orders_count }) => {
+  console.log({ Orders, orders_count })
   return (
     <Fragment>
       <Head>
@@ -157,9 +156,12 @@ export async function getServerSideProps({ req }) {
       .order('paid', { ascending: false })
       .order('created_at', { ascending: false })
 
+    let orders_count = await supabase.rpc('get_paid_orders_count')
+
     return {
       props: {
         Orders,
+        orders_count,
       },
     }
   } else {
